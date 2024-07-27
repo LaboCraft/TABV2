@@ -112,7 +112,7 @@ public class PacketTabList1193 extends PacketTabList18 {
                 listed,
                 latency,
                 gameModes[gameMode],
-                displayName, //toComponent(TabComponent.fromColoredText("Test")),
+                displayName,
                 null
         )));
         return packet;
