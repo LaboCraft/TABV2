@@ -13,6 +13,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * TabList handler for 1.19.3+ servers using packets.
  */
@@ -112,7 +115,7 @@ public class PacketTabList1193 extends PacketTabList18 {
                 listed,
                 latency,
                 gameModes[gameMode],
-                displayName,
+                displayName, //toComponent(TabComponent.fromColoredText("Test")),
                 null
         )));
         return packet;
@@ -148,6 +151,19 @@ public class PacketTabList1193 extends PacketTabList18 {
             if (actions.contains(actionAddPlayer)) {
                 TAB.getInstance().getFeatureManager().onEntryAdd(player, id, profile.getName());
             }
+
+            /*
+            try {
+                Class<?> IChatBaseComponent = BukkitReflection.getClass("network.chat.Component", "network.chat.IChatBaseComponent", "IChatBaseComponent");
+                Method IChatBaseComponent_b = ReflectionUtils.getMethod(IChatBaseComponent, new String[] {"b", "literal"}, String.class);
+                //displayName = IChatBaseComponent_b.invoke(null, "Test");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            */
+
+            //rewritePacket = true;
+            //rewriteEntry = true;
             // 1.19.3 is using records, which do not allow changing final fields, need to rewrite the list entirely
             updatedList.add(rewriteEntry ? newPlayerInfoData.newInstance(
                     id,

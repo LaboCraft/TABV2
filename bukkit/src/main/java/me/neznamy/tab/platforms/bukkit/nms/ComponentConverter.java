@@ -1,10 +1,7 @@
 package me.neznamy.tab.platforms.bukkit.nms;
 
 import lombok.SneakyThrows;
-import me.neznamy.tab.shared.chat.ChatModifier;
-import me.neznamy.tab.shared.chat.SimpleComponent;
-import me.neznamy.tab.shared.chat.StructuredComponent;
-import me.neznamy.tab.shared.chat.TabComponent;
+import me.neznamy.tab.shared.chat.*;
 import me.neznamy.tab.shared.util.FunctionWithException;
 import me.neznamy.tab.shared.util.ReflectionUtils;
 import org.jetbrains.annotations.NotNull;
@@ -96,6 +93,14 @@ public class ComponentConverter {
         if (component instanceof SimpleComponent) return newTextComponent.apply(((SimpleComponent) component).getText());
 
         StructuredComponent component1 = (StructuredComponent) component;
+        if (component1.getText().startsWith("genericcore:")) {
+            String text = component1.getText().replace("genericcore:", "");
+            int firstColonIndex = text.indexOf(":");
+            int secondColonIndex = text.indexOf(":", firstColonIndex + 1);
+            component1.setText(text.substring(secondColonIndex + 1));
+            component1.getModifier().setFont(text.substring(0, secondColonIndex));
+            component1.getModifier().setColor(TextColor.legacy(me.neznamy.tab.shared.chat.EnumChatFormat.WHITE));
+        }
         Object nmsComponent = newTextComponent.apply(component1.getText());
         Component_modifier.set(nmsComponent, convertModifier.apply(component1.getModifier(), modern));
         for (StructuredComponent extra : component1.getExtra()) {
@@ -114,6 +119,35 @@ public class ComponentConverter {
                 color = ChatHexColor_fromRGB.invoke(null, modifier.getColor().getLegacyColor().getRgb());
             }
         }
+        //color = null;
+        //modifier.setFont("nova:tag");
+        //modifier.setBold(false);
+        //.setUnderlined(false);
+        //modifier.setBold(false);
+        System.out.println(newChatModifier.newInstance(
+                color,
+                modifier.isBold(),
+                modifier.isItalic(),
+                modifier.isUnderlined(),
+                modifier.isStrikethrough(),
+                modifier.isObfuscated(),
+                null,
+                null,
+                null,
+                modifier.getFont() == null ? null : ResourceLocation_tryParse.invoke(null, modifier.getFont())
+        ));
+        System.out.println(newChatModifier.newInstance(
+                color,
+                modifier.isBold(),
+                modifier.isItalic(),
+                modifier.isUnderlined(),
+                modifier.isStrikethrough(),
+                modifier.isObfuscated(),
+                null,
+                null,
+                null,
+                modifier.getFont() == null ? null : ResourceLocation_tryParse.invoke(null, modifier.getFont())
+        ).getClass());
         return newChatModifier.newInstance(
                 color,
                 modifier.isBold(),
