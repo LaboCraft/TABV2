@@ -119,35 +119,6 @@ public class ComponentConverter {
                 color = ChatHexColor_fromRGB.invoke(null, modifier.getColor().getLegacyColor().getRgb());
             }
         }
-        //color = null;
-        //modifier.setFont("nova:tag");
-        //modifier.setBold(false);
-        //.setUnderlined(false);
-        //modifier.setBold(false);
-        System.out.println(newChatModifier.newInstance(
-                color,
-                modifier.isBold(),
-                modifier.isItalic(),
-                modifier.isUnderlined(),
-                modifier.isStrikethrough(),
-                modifier.isObfuscated(),
-                null,
-                null,
-                null,
-                modifier.getFont() == null ? null : ResourceLocation_tryParse.invoke(null, modifier.getFont())
-        ));
-        System.out.println(newChatModifier.newInstance(
-                color,
-                modifier.isBold(),
-                modifier.isItalic(),
-                modifier.isUnderlined(),
-                modifier.isStrikethrough(),
-                modifier.isObfuscated(),
-                null,
-                null,
-                null,
-                modifier.getFont() == null ? null : ResourceLocation_tryParse.invoke(null, modifier.getFont())
-        ).getClass());
         return newChatModifier.newInstance(
                 color,
                 modifier.isBold(),

@@ -152,18 +152,6 @@ public class PacketTabList1193 extends PacketTabList18 {
                 TAB.getInstance().getFeatureManager().onEntryAdd(player, id, profile.getName());
             }
 
-            /*
-            try {
-                Class<?> IChatBaseComponent = BukkitReflection.getClass("network.chat.Component", "network.chat.IChatBaseComponent", "IChatBaseComponent");
-                Method IChatBaseComponent_b = ReflectionUtils.getMethod(IChatBaseComponent, new String[] {"b", "literal"}, String.class);
-                //displayName = IChatBaseComponent_b.invoke(null, "Test");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
-
-            //rewritePacket = true;
-            //rewriteEntry = true;
             // 1.19.3 is using records, which do not allow changing final fields, need to rewrite the list entirely
             updatedList.add(rewriteEntry ? newPlayerInfoData.newInstance(
                     id,
