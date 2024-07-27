@@ -13,9 +13,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * TabList handler for 1.19.3+ servers using packets.
  */
@@ -151,7 +148,6 @@ public class PacketTabList1193 extends PacketTabList18 {
             if (actions.contains(actionAddPlayer)) {
                 TAB.getInstance().getFeatureManager().onEntryAdd(player, id, profile.getName());
             }
-
             // 1.19.3 is using records, which do not allow changing final fields, need to rewrite the list entirely
             updatedList.add(rewriteEntry ? newPlayerInfoData.newInstance(
                     id,
